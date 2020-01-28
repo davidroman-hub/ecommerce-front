@@ -7,13 +7,14 @@ import Signup from './user/Signup'
 import Home from './core/Home'
 
 //menu
-import Menu from './core/Menu'
+
+//import Menu from './core/Menu' // I CHANGING THE MENU TO LAYOUT
 
 
 const Routes = () => {
     return(
     <BrowserRouter>
-    <Menu/>
+    {/* <Menu/> */}
           <Switch>
                <Route path = '/' exact component={Home}/>  
                <Route path = '/signin' exact component={Signin}/> 
