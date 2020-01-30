@@ -18,7 +18,7 @@ const Signup = () => {
 
 //destructarin the values with another function:
 
-const {name, email, password, success, error} = values
+const {name, email, password, error, success} = values
 
 
 // funtion will return another function for take the state
@@ -64,10 +64,10 @@ const {name, email, password, success, error} = values
         setValues({...setValues,error:false})
         signup({name, email, password})//<-- WHE CHANGED FOR AND OBJECT {} FOR USE IN USER// <-- and we are using sign up from here
         
-        // for clean the formularie , to handle the error as well.
+        // for clear the formularie , to handle the error as well.
         .then( data => {
             if(data.error){
-                setValues({...values, error: data.error, success: false})
+                setValues({...values, error: data.error, success: false}) //if the form is bad it will be succes false
             } else {
                 setValues({
                     ...values,
@@ -75,7 +75,7 @@ const {name, email, password, success, error} = values
                     email:'',
                     password:'',
                     error:'',
-                    success:true
+                    success:true // if everything its correct it will be true
                 })
             }
         })
@@ -90,7 +90,7 @@ const {name, email, password, success, error} = values
                 <label className='text-muted'>Name</label>
                 {/* and we gona put inside the input because the input will changed  */}
                 <input onChange={ handleChange('name') } type='text' className='form-control'
-                value={name}
+                value={name} //this is will be the value when u put the coontent inside, very stricted
                 />
             </div>
         
