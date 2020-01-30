@@ -1,7 +1,9 @@
 import React,{ useState } from 'react'
 import {Link} from 'react-router-dom'
 import Layout from '../core/Layout'
-import {API} from '../config'
+//import {API} from '../config'
+import {signup} from '../auth/index' //<--- i changed the route of sign up
+
 const Signup = () => {
 
 //State
@@ -26,40 +28,41 @@ const {name, email, password, success, error} = values
         //we have to take all the values thats why i used " ... "
         setValues({...values, error:false, [name]:event.target.value});
     }
+    
     //to create a new user we need to use the values thats why we put the method signup
     
     //const signup = (name, email, password) => {
     //we change for user we had the same a the top    
-        const signup = user => {    
+        // const signup = user => {    
     
        // console.log(name, email, password)  this is only for check what we are sending
        
        //for send to the backn end we have to use the argument Fetch
         //below is the method
 
-      return fetch(`${API}/signup`,{
-           method: "POST",
-           headers:{
-               Accept:'application/json',
-               "Content-Type":"application/json"
-           },
-           body:JSON.stringify(user) //<-- THE USER ARGUMENT WILL COME FROM THE CLICK SUBMIT AND WE CAN USE LIKE AN ARGUMENT
-        //    body:JSON.stringify(name, email, password)
-       })
-       .then( response => {
-           return response.json()
-       })
-        .catch(err =>{
-            console.log(err);
-        });
-    };
+    //   return fetch(`${API}/signup`,{
+    //        method: "POST",
+    //        headers:{
+    //            Accept:'application/json',
+    //            "Content-Type":"application/json"
+    //        },
+    //        body:JSON.stringify(user) //<-- THE USER ARGUMENT WILL COME FROM THE CLICK SUBMIT AND WE CAN USE LIKE AN ARGUMENT
+    //     //    body:JSON.stringify(name, email, password)
+    //    })
+    //    .then( response => {
+    //        return response.json()
+    //    })
+    //     .catch(err =>{
+    //         console.log(err);
+    //     });
+    // };
     //we have to grab the event thats why i put event
     //we dont need to the browser will reloaded thats why we use preventDefault
     
     const clickSubmit = (event) => { 
         event.preventDefault();
         setValues({...setValues,error:false})
-        signup({name, email, password})//<-- WHE CHANGED FOR AND OBJECT {} FOR USE IN USER
+        signup({name, email, password})//<-- WHE CHANGED FOR AND OBJECT {} FOR USE IN USER// <-- and we are using sign up from here
         
         // for clean the formularie , to handle the error as well.
         .then( data => {
@@ -109,7 +112,7 @@ const {name, email, password, success, error} = values
 
     ) ;
 
-    //two funtions for show the Error
+    //two funtions for show the Error and success
 
     const showError = () => { 
        return( <div className="alert alert-danger" style={{display:error ? '' : 'none'}}> 
