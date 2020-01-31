@@ -55,7 +55,7 @@ const {email, password, error, loading, redirectToReferrer } = values
 
         
             <div className='form-group'>
-                <label className='text-muted'>Email</label>
+                <label className='text-muted'>E-mail</label>
                 <input onChange={ handleChange('email') }  type='email' className='form-control'
                   value={email}
                 />
