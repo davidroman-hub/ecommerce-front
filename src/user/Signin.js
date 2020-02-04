@@ -49,7 +49,7 @@ const {email, password, error, loading, redirectToReferrer } = values
     }
 
 
-    const signUpForm = () => (
+    const signInForm = () => (
        
        <form>
 
@@ -100,7 +100,7 @@ const {email, password, error, loading, redirectToReferrer } = values
 
             {showLoading()}
             {showError()}
-            {signUpForm()}
+            {signInForm()}
             {redirectUser()}
             {/* {JSON.stringify(values)} this is for see the state if values are worling in the handleChange */}
     </Layout> 

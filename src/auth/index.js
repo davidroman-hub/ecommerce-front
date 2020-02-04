@@ -22,7 +22,7 @@ return fetch(`${API}/signup`,{
 
 
 
-
+/// sign in method
 
 export const signin = user => {
 
