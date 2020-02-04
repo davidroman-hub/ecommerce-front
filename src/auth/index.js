@@ -42,3 +42,13 @@ export const signin = user => {
          console.log(err);
      });
     };
+
+
+    // Authenticated method -->  it will be a method for save user and token inlocal storage
+
+    export const authenticate = (data, next) => {
+        if(typeof window !== 'undefined') {
+            localStorage.setItem('jwt', JSON.stringify(data))  //<-- setItem its for save
+            next()
+        }
+    }

@@ -2,15 +2,15 @@ import React,{ useState } from 'react'
 import {Redirect} from 'react-router-dom'
 import Layout from '../core/Layout'
 //import {API} from '../config'
-import {signin} from '../auth/index' //<--- i changed the route of sign up
+import {signin, authenticate} from '../auth/index' //<--- i changed the route of sign up
 
 const Signin = () => {
 
 //State
 
     const [values, setValues] = useState({
-        email:'',
-        password:'',
+        email:'jobroman8999@gmail.com',
+        password:'12345679',
         error:'',
         loading:false,
         redirectToReferrer:false, // to redirect when the user is signend in
@@ -40,13 +40,19 @@ const {email, password, error, loading, redirectToReferrer } = values
             if(data.error){
                 setValues({...values, error: data.error, loading: false}) //if the form is bad it will be succes false
             } else {
-                setValues({
-                    ...values,//<-- we want to use all the values
-                   redirectToReferrer:true // if everything its correct it will be true
-                })
+                // setValues({
+                //     ...values,//<-- we want to use all the values
+                //    redirectToReferrer:true // if everything its correct it will be true
+                // });
+                authenticate(data,() => {
+                        setValues({
+                            ...values,//<-- we want to use all the values
+                           redirectToReferrer:true // if everything its correct it will be true
+                        });
+                    });
             }
-        })
-    }
+        });
+    };
 
 
     const signInForm = () => (
@@ -94,7 +100,7 @@ const {email, password, error, loading, redirectToReferrer } = values
 
 
     return(
-        <Layout title='Sign up Page' 
+        <Layout title='Sign In Page' 
         description="Sign un to Node React e-Commerce app"
         className="container col-md-8 offset-md-2">   
 
