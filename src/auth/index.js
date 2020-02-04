@@ -51,4 +51,23 @@ export const signin = user => {
             localStorage.setItem('jwt', JSON.stringify(data))  //<-- setItem its for save
             next()
         }
+    };
+
+
+    //Signout  method
+
+    // we have to remove the jwt from the local storage, and its thew next method
+    // and redirect the user o ther part when is out
+    export const signout = (next) => { 
+        if(typeof window !== 'undefined') {
+            localStorage.removeItem('jwt');  //<-- setItem its for save
+            next();
+            return fetch(`${API}/signout`, {
+                method:'GET',
+            })
+            .then( response => {
+                console.log('signout', response)
+            })
+            .catch(err => console.log(err))
+        }
     }

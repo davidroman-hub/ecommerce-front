@@ -1,5 +1,7 @@
 import React from 'react'
 import {Link, withRouter} from 'react-router-dom'
+import {signout} from '../auth/index'
+
 
 const isActive = (history, path) => {
     if(history.location.pathname === path) { // this is for change the color when is activated the Route
@@ -22,6 +24,14 @@ const Menu = ({history}) => (
 
             <li className=" nav-item">
                 <Link className="nav-link"  style={isActive(history,'/signup')} to="/signup">Sign up</Link>
+            </li>
+            <li className=" nav-item">
+                <span 
+                className="nav-link"  
+                style={{cursor:'pointer', color:'#ffff'}}
+                onClick={() => signout(()=> {
+                    history.push('/');
+                })} >Sign out</span>
             </li>
         </ul>
 
