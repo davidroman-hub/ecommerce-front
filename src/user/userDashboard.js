@@ -3,19 +3,22 @@ import Layout from '../core/Layout'
 import {isAuth} from '../auth/index'
 
 const Dashboard = () => {
+
+    const {user:{_id, name, email, role}} = isAuth()
+
     return (
         <Layout title='Dashboard' description=' User Dashboard' className='container' >
             <div className=' card mb-5'>
                 <h3 className='card-header'>User information</h3>
                 <ul className='list-group'>
                     <li className='list-group-item'>
-                        name
+                        {name}
                     </li>
                     <li className='list-group-item'>
-                        email
+                        {email}
                     </li>
                     <li className='list-group-item'>
-                        role
+                        {role === 1 ? 'admin' : 'Registered User'} 
                     </li>
                 </ul>
             </div>

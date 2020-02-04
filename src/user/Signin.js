@@ -2,7 +2,7 @@ import React,{ useState } from 'react'
 import {Redirect} from 'react-router-dom'
 import Layout from '../core/Layout'
 //import {API} from '../config'
-import {signin, authenticate} from '../auth/index' //<--- i changed the route of sign up
+import {signin, authenticate, isAuth} from '../auth/index' //<--- i changed the route of sign up
 
 const Signin = () => {
 
@@ -19,7 +19,7 @@ const Signin = () => {
 //destructarin the values with another function:
 
 const {email, password, error, loading, redirectToReferrer } = values
-
+const {user} = isAuth()
 
 // funtion will return another function for take the state
  
@@ -94,7 +94,11 @@ const {email, password, error, loading, redirectToReferrer } = values
 
     const redirectUser = () => { 
         if(redirectToReferrer){
-            return <Redirect to='/'/>
+           if(user && user.role === 1) {
+               return <Redirect to='admin/dashbord'/>
+           } else {
+                return <Redirect to='/user/dashboard'/>
+           }
         }
     }
 
