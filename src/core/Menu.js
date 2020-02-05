@@ -18,9 +18,18 @@ const Menu = ({history}) => (
                 <Link className="nav-link" style={isActive(history,'/')} to="/">Home</Link>
             </li>
 
-            <li className=" nav-item">
+           {isAuth() && isAuth().user.role === 0 && (
+                <li className=" nav-item">
                 <Link className="nav-link" style={isActive(history,'user/dashboard')} to="user/dashboard">Dashboard</Link>
             </li>
+           )}
+           
+           {isAuth() && isAuth().user.role === 1 &&(
+                <li className=" nav-item">
+                <Link className="nav-link" style={isActive(history,'admin/dashboard')} to="admin/dashboard"> Admin Dashboard</Link>
+            </li>
+           )}
+           
 
                 {!isAuth () && (
                   <Fragment>

@@ -95,10 +95,13 @@ const {user} = isAuth()
     const redirectUser = () => { 
         if(redirectToReferrer){
            if(user && user.role === 1) {
-               return <Redirect to='admin/dashbord'/>
+               return <Redirect to='admin/dashboard'/>
            } else {
                 return <Redirect to='/user/dashboard'/>
            }
+        }
+        if(isAuth()){
+            return <Redirect to='/'/>
         }
     }
 
