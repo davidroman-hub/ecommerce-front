@@ -13,7 +13,7 @@ import AdminDashboard from './user/AdminDashboard'
 import PrivateRoute from './auth/PrivateRoute'
 import AdminRoute from './auth/AdminRoute'
 import AddCategory from './admin/AddCategory'
-
+import AddProduct from './admin/AddProduct'
 
 
 //menu
@@ -38,6 +38,7 @@ const Routes = () => {
             
                <AdminRoute path='/admin/dashboard' exact component={AdminDashboard}/>
                <AdminRoute path='/create/categories' exact component={AddCategory}/>
+               <AdminRoute path='/create/product' exact component={AddProduct}/>
                  
           </Switch>  
     </BrowserRouter>
