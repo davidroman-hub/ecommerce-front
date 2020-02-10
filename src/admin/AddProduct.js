@@ -168,6 +168,7 @@ const AddProduct = () => {
                         onChange={handleChange('shipping')} 
                         className='form-control' 
                         >
+                         <option >Please select</option> 
                          <option value='0'>No</option>
                          <option value='1'>yes</option>      
                     </select>
@@ -189,6 +190,32 @@ const AddProduct = () => {
         </form>
     )
 
+// three funtions for error , Success and show loading
+
+const showError = () => {
+     return(
+         <div className='alert alert-danger' style={{display:error ? '' : 'none'}}>
+             {error}
+         </div>
+     )
+}
+
+const showSuccess = () => {
+    return(
+        <div className='alert alert-info' style={{display:createdProduct ? '' : 'none'}}>
+            <h2>{`${createdProduct}`} is created!</h2>
+        </div>
+    )
+}
+
+const showLoading = () => {
+    return(
+        loading && (<div className='alert alert-success'> Loading...</div>)
+    )
+}
+
+
+
 
     return(
         <Layout title='Add a new Product' 
@@ -198,6 +225,9 @@ const AddProduct = () => {
         <div className='row'>
           
             <div className='col-md-8 offset-md-2'>
+                  {showLoading()}
+                  {showSuccess()}
+                  {showError()}
                   {newPostForm()}
 
             </div>
