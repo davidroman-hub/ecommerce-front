@@ -2,7 +2,7 @@ import React,{useState, useEffect} from 'react'
 import Layout from '../core/Layout'
 import {isAuth} from '../auth/index'
 import {Link} from 'react-router-dom'
-import { createProduct } from './apiAdmin'
+import { createProduct, getCategories} from './apiAdmin'
 
 const AddProduct = () => {
 
@@ -49,9 +49,25 @@ const AddProduct = () => {
 
     } = values;
 
-useEffect(() => { 
-    setValues({...values, formData: new FormData()}); //<-- thats why we used here
-}, [])
+    // load categories and set formData
+
+    const init = () => {
+        getCategories().then( data => {
+            if (data.error){
+                setValues({...values, error: data.error})
+            }else{
+                setValues({...values,categories:data, formData: new FormData()})
+            }
+        }) 
+    }
+
+
+
+        
+    useEffect(() => { 
+        // setValues({...values, formData: new FormData()}); //<-- thats why we used here
+        init();
+    }, [])
 
 
 // handleChange and clickSubmit
@@ -137,8 +153,11 @@ useEffect(() => {
                         onChange={handleChange('category')} 
                         className='form-control' 
                         >
-                         <option value='5e3c30a1d2a9ff2b3cd22f8e'>Node</option> 
-                         <option value='5e3c30a1d2a9ff2b3cd22f8e'>PhP</option>   
+                            <option >Please select</option> 
+                            {categories && categories.map((c, i) => 
+                                (<option key={i} 
+                                    value={c._id} > {c.name} 
+                            </option>))}
                     </select>
             </div>
             
