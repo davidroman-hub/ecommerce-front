@@ -6,7 +6,7 @@ import Signin from './user/Signin'
 import Signup from './user/Signup'
 import Home from './core/Home'
 import Dashboard from './user/userDashboard'
-import AdminDashboard from './user/AdminDashboard'
+import Shop from './core/Shop'
 
 //Routes Privates and admi
 
@@ -14,7 +14,7 @@ import PrivateRoute from './auth/PrivateRoute'
 import AdminRoute from './auth/AdminRoute'
 import AddCategory from './admin/AddCategory'
 import AddProduct from './admin/AddProduct'
-
+import AdminDashboard from './user/AdminDashboard'
 
 //menu
 
@@ -26,7 +26,8 @@ const Routes = () => {
     <BrowserRouter>
     {/* <Menu/> */}
           <Switch>
-               <Route path = '/' exact component={Home}/>  
+               <Route path = '/' exact component={Home}/>
+               <Route path = '/shop' exact component={Shop}/>   
                <Route path = '/signin' exact component={Signin}/> 
                <Route path = '/signup' exact component={Signup}/> 
                
