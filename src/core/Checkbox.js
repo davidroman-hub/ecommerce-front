@@ -9,7 +9,8 @@ const Checkbox = ({categories, handleFilters}) => {
 //For the handle categories toggle we need a state
 
 const [checked, setCheked] = useState([])
-// we need to check if the categoris is alredy "checked"
+// we need to check if the categories is alredy "checked"
+
 const handleToggle = c => () => {
     const currentCategoryId = checked.indexOf(c) // return the first index or -1// and this will tell us if is alredy there
     const newCheckedCategoryId = [...checked] // <-- will gave us all the categories ids in the state
@@ -30,7 +31,10 @@ if(currentCategoryId === -1) {
 
     return categories.map((c, i)=> (
         <li key={i} className='list-unstyled'>
-            <input onChange={handleToggle(c._id)} value={checked.indexOf(c._id === -1)} type='checkbox' className='form-check-input'/>
+            <input onChange={handleToggle(c._id)} 
+            value={checked.indexOf(c._id === -1)} 
+            type='checkbox' 
+            className='form-check-input'/>
             <label className='form-check-label'>{c.name}</label>
         </li>
     ))
