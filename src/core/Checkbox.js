@@ -4,7 +4,7 @@ import React, {useState,useEffect} from 'react';
 
 // we have to send categories props
 
-const Checkbox = ({categories}) => {
+const Checkbox = ({categories, handleFilters}) => {
 
 //For the handle categories toggle we need a state
 
@@ -20,8 +20,9 @@ if(currentCategoryId === -1) {
     } else{
         newCheckedCategoryId.splice(currentCategoryId, 1)
     }
-    console.log(newCheckedCategoryId)
-    setCheked(newCheckedCategoryId)
+    console.log(newCheckedCategoryId);
+    setCheked(newCheckedCategoryId);
+    handleFilters(newCheckedCategoryId);
 }
 
 
