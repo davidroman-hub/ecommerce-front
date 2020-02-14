@@ -64,6 +64,15 @@ const Search = () => {
 
     }
 
+    // Meethod for searched products
+
+    const searchedProducts = (results = []) => {
+       return(
+        <div className="row">
+            {results.map((product,i) =>(<Card  key={i} product={product}/>))}
+        </div>
+        )
+    }
 
     const searchForm = () => {
         return(
@@ -97,8 +106,15 @@ const Search = () => {
             {/* <h2> search bar {JSON.stringify(categories)}</h2> */}
             <div className="container mb-3">
                 {searchForm()}
-                {JSON.stringify(results)}
+                {/* {JSON.stringify(results)} */}
             </div>
+            
+                    {/* Products Results*/}
+            
+            <div className="container-fluid mb-3">
+                {searchedProducts(results)}
+            </div>
+
         </div>
     )
 }
