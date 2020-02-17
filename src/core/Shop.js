@@ -139,11 +139,13 @@ const handlePrice = value => {
               <div className='col-8'>
                   {/* {JSON.stringify(filteredResults)}
                   {JSON.stringify(myFilters)} */}
-                   <h2 className="mb-4">Products</h2>
+                   <h2 className="mb-3 ml-5">Products</h2>
                     <div className="row">
                     {filteredResults.map((product, i) => (
                             
-                            <Card key={i} product={product} />
+                        <div key={i} className='col-10 mb-3 ml-4'>
+                            <Card product={product}/>
+                         </div>
                             
                         ))}
                         {/* {filteredResults.map((product, i) => (
