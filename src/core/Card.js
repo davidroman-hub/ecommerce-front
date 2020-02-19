@@ -4,7 +4,7 @@ import ShowImage from './ShowImage'
 import moment from 'moment'
 import {addItem} from './cartHelpers'
 
-const Card = ({ product, showViewProductButton = true, showAddToCartButton = true }) => {
+const Card = ({ product, showViewProductButton = true, showAddToCartButton = true, cartUpdate= false }) => {
 
     const [redirect, setRedirect] = useState(false)//<State for the cart redirect
 
@@ -40,13 +40,22 @@ const shouldRedirect = redirect => {
         )
     };
 
+    // function for  show the stok in a button
+
     const showStock = (quantity) => {
         return quantity > 0 ? <span className='badge badge-primary badge-pill'>In stock</span> 
         : 
         
         <span className='badge badge-primary badge-pill'> Out Stock</span>
     }
-    
+   
+    // funtion for show the update in the card 
+
+    const showCartUpdateOptions = cartUpdate => {
+        return cartUpdate && <div> Increment/ dicrement </div>
+    }
+
+
 
     return (
         // <div className='col-4 mb-3'>
@@ -74,6 +83,7 @@ const shouldRedirect = redirect => {
                         Add to card
                     </button> */}
                     {showAddToCart(showAddToCartButton)}
+                    {showCartUpdateOptions(cartUpdate)}
 
                 </div>
             </div>
