@@ -6,11 +6,14 @@ import Card from './Card'
 
 const Cart = () => {
 
-    const [item, setItem] = useState([])
+    const [item, setItem] = useState([]);
+    const [run, setRun] = useState(false); //<- for fix the infinity loop
+
+
 
     useEffect(() => {
-        setItem(getCart)
-    },[])
+        setItem(getCart())
+    },[run])
 
     const showItem = () => {
         return(
@@ -24,6 +27,8 @@ const Cart = () => {
                     showAddToCartButton={false}
                     cartUpdate={true}
                     showRemoveProductButton={true}
+                    setRun={setRun}
+                    run={run}
                     />
                 ))}
             </div>

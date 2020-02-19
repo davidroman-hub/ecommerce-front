@@ -9,6 +9,8 @@ const Card = ({   product,
                   showAddToCartButton = true, 
                   cartUpdate= false,
                   showRemoveProductButton = false,  
+                  setRun = f => f, //default value of funtion
+                  run =undefined // default value of undefined
                 }) => {
 
     const [redirect, setRedirect] = useState(false)//<State for the cart redirect
@@ -59,6 +61,7 @@ const shouldRedirect = redirect => {
     // handle change for the quantity oof the products
     // we need to create another method in card helpers called update and use at the final
     const handleChange = productId => event => {
+        setRun(!run);// run useEffect in parent cart
         setCount(event.target.value < 1 ?  1 : event.target.value)
         if (event.target.value >= 1) {
             updateItem(productId, event.target.value)
@@ -92,7 +95,11 @@ const shouldRedirect = redirect => {
         
         return (
              showRemoveProductButton && (
-                    <button  onClick={() => removeItem(product._id)} className='btn btn-outline-danger mt-2 mb-2'>
+                    <button  
+                     onClick={() => {
+                         removeItem(product._id);
+                         setRun(!run) // run useEffect in parent cart
+                         }} className='btn btn-outline-danger mt-2 mb-2'>
                                 Remove Product
                     </button>
              )
