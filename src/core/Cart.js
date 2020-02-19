@@ -23,6 +23,7 @@ const Cart = () => {
                     product={product} 
                     showAddToCartButton={false}
                     cartUpdate={true}
+                    showRemoveProductButton={true}
                     />
                 ))}
             </div>

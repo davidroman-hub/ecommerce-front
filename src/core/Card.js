@@ -2,9 +2,14 @@ import React,{ useState} from 'react'
 import {Link, Redirect} from 'react-router-dom'
 import ShowImage from './ShowImage'
 import moment from 'moment'
-import {addItem, updateItem}  from './cartHelpers'
+import {addItem, updateItem, removeItem }  from './cartHelpers'
 
-const Card = ({ product, showViewProductButton = true, showAddToCartButton = true, cartUpdate= false }) => {
+const Card = ({   product,
+                  showViewProductButton = true,
+                  showAddToCartButton = true, 
+                  cartUpdate= false,
+                  showRemoveProductButton = false,  
+                }) => {
 
     const [redirect, setRedirect] = useState(false)//<State for the cart redirect
     const [ count, setCount] = useState(product.count)//, state for increment or dicrement quantity
@@ -80,6 +85,20 @@ const shouldRedirect = redirect => {
              )
         }
 
+        //// show remove cart funtion
+
+        
+    const showRemoveButton = (showRemoveProductButton) => {
+        
+        return (
+             showRemoveProductButton && (
+                    <button  onClick={() => removeItem(product._id)} className='btn btn-outline-danger mt-2 mb-2'>
+                                Remove Product
+                    </button>
+             )
+        )
+    };
+
 
 
     return (
@@ -108,6 +127,7 @@ const shouldRedirect = redirect => {
                         Add to card
                     </button> */}
                     {showAddToCart(showAddToCartButton)}
+                    {showRemoveButton(showRemoveProductButton)}
                     {showCartUpdateOptions(cartUpdate)}
 
                 </div>
