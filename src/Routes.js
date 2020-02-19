@@ -8,6 +8,7 @@ import Home from './core/Home'
 import Dashboard from './user/userDashboard'
 import Shop from './core/Shop'
 import Product from './core/Product'
+import Cart from './core/Cart'
 //Routes Privates and admi
 
 import PrivateRoute from './auth/PrivateRoute'
@@ -28,6 +29,7 @@ const Routes = () => {
           <Switch>
                <Route path = '/' exact component={Home}/>
                <Route path = '/product/:productId' exact component={Product}/>
+               <Route path = '/cart' exact component={Cart}/>
                <Route path = '/shop' exact component={Shop}/>   
                <Route path = '/signin' exact component={Signin}/> 
                <Route path = '/signup' exact component={Signup}/> 

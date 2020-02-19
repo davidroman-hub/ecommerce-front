@@ -33,6 +33,7 @@ if (typeof item !== 'undefined'){
 }
 
 
+// This is for show the item total in the menu from the local storage
 
 export const itemTotal = () => { 
     if(typeof window !== 'undefined'){
@@ -41,4 +42,15 @@ export const itemTotal = () => {
         }
     }
     return 0;
+};
+
+// this method os for get all the elements in the cart and how them in the cart component
+
+export const getCart = () => { 
+    if(typeof window !== 'undefined'){
+        if(localStorage.getItem('cart')){
+            return JSON.parse(localStorage.getItem('cart'));
+        }
+    }
+    return [];
 };
