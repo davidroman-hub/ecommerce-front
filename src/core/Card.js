@@ -1,13 +1,15 @@
-import React,{ useState,useEffect} from 'react'
+import React,{ useState} from 'react'
 import {Link, Redirect} from 'react-router-dom'
 import ShowImage from './ShowImage'
 import moment from 'moment'
-import {addItem} from './cartHelpers'
+import {addItem, updateItem}  from './cartHelpers'
 
 const Card = ({ product, showViewProductButton = true, showAddToCartButton = true, cartUpdate= false }) => {
 
     const [redirect, setRedirect] = useState(false)//<State for the cart redirect
-
+    const [ count, setCount] = useState(product.count)//, state for increment or dicrement quantity
+    
+    
     const showViewButton = (showViewProductButton) => {
         return (
             
@@ -49,11 +51,34 @@ const shouldRedirect = redirect => {
         <span className='badge badge-primary badge-pill'> Out Stock</span>
     }
    
+    // handle change for the quantity oof the products
+    // we need to create another method in card helpers called update and use at the final
+    const handleChange = productId => event => {
+        setCount(event.target.value < 1 ?  1 : event.target.value)
+        if (event.target.value >= 1) {
+            updateItem(productId, event.target.value)
+        }
+    }
+
+
     // funtion for show the update in the card 
 
     const showCartUpdateOptions = cartUpdate => {
-        return cartUpdate && <div> Increment/ dicrement </div>
-    }
+        return (
+            cartUpdate && (
+            <div>
+                <div className="input-group mb-3">
+                    <div className="input-group-prepend">
+                        <span className="input-group-text">
+                            Adjust Quantity
+                        </span>          {/* // we need to know what product we need to incr/dic thats why we use id                                          */}            
+                    </div>
+                    <input type="number" className="form-control" value={count} onChange={handleChange(product._id)} />
+                </div>
+             </div>
+                )
+             )
+        }
 
 
 
