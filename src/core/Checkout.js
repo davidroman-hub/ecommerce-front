@@ -71,7 +71,7 @@ const showCheckout = () => {
                 nonce = data.nonce
                 // once you have nonce (card type, card number , etc..) send nonce as "paymentMethodNonce " to the backend
                 // and also total to be charged 
-                console.log('send nonce and tootal process:', nonce, getTotal(product))
+                console.log('send nonce and total process:', nonce, getTotal(product))
             })
             .catch(error => {
                 console.log('dropin error:', error)
@@ -84,7 +84,8 @@ const showCheckout = () => {
 
     const showDropIn = () => {
         return (
-            <div>
+                // onBlur is used when its an error on our pay method , when you start to put something will disapear
+            <div onBlur={()=> setData({...data, error:""})}>
                 {data.clientToken !== null && product.length > 0 ? (
                     <div>
                         <DropIn options={{
@@ -97,12 +98,29 @@ const showCheckout = () => {
         )
     }
 
+// for show the error when is available
+
+const showError = error => {
+    return (                               
+                                            
+         <div className="alert alert-danger"
+            // if exist this error show if not non show 
+            style={{display: error ? '' : 'none'}}>
+                {error}
+         </div>
+    )
+}
+
+
+
+
 
     return (
         // <div>{JSON.stringify(product)}</div>
       <div> 
         <h2> Total: ${getTotal()}</h2>
-
+      {/* // data error from the state */}
+       { showError(data.error)}
        {showCheckout()}
      
     </div>
