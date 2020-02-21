@@ -1,12 +1,41 @@
 import React, {useState,useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import Layout from './Layout'
-import {getProducts} from './apiCore'
+import {getProducts, getBraintreeClientToken} from './apiCore'
 import Card from './Card'
 import  {isAuth} from '../auth/index'
 
 
 const Checkout = ({product}) => {
+
+    //State for get the token from braintree
+
+    const [data, setData] = useState({
+        success:false,
+        clientToken:null,
+        error:'',
+        instance:{},
+        address:''
+    })
+                //if is auth
+    const userId = isAuth() && isAuth().user._id
+    const token = isAuth() && isAuth().token
+
+// get token method
+
+const getToken = (userId, token) => {
+ getBraintreeClientToken(userId, token).then(data => {
+     if (data.error){
+         setData({...data, error: data.error})
+     } else {
+         setData({...data,clientToken: data.clientToken})
+     }
+ })
+}
+
+useEffect(() => {
+    getToken(userId,token)
+},[])
 
 // Method for gewt the total amount
     const getTotal = () => {
