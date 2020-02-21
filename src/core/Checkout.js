@@ -5,6 +5,8 @@ import {getProducts, getBraintreeClientToken, processPayment} from './apiCore'
 import Card from './Card'
 import  {isAuth} from '../auth/index'
 import DropIn from 'braintree-web-drop-in-react'
+import { emptyCart } from './cartHelpers'
+
 
 const Checkout = ({product}) => {
 
@@ -80,6 +82,9 @@ const showCheckout = () => {
                 .then( response => {
                     console.log(response)
                     setData({...data, success: response.success})
+                    emptyCart(() => {
+                        console.log('payment success and empty cart')
+                    })
                     //empty cart
                     //create order
 

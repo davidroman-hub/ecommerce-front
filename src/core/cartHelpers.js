@@ -91,5 +91,21 @@ export const removeItem = (productId) => {
 
         localStorage.setItem('cart', JSON.stringify(cart));
     }
-    return cart
-;};
+    return cart;
+};
+
+
+// empty cart after one transaction
+
+
+
+
+export const emptyCart = next => {
+    if (typeof window !== 'undefined') {
+        localStorage.removeItem('cart');
+        next();
+    }
+};
+
+
+
