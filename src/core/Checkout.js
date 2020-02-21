@@ -4,7 +4,7 @@ import Layout from './Layout'
 import {getProducts, getBraintreeClientToken} from './apiCore'
 import Card from './Card'
 import  {isAuth} from '../auth/index'
-
+import DropIn from 'braintree-web-drop-in-react'
 
 const Checkout = ({product}) => {
 
@@ -46,7 +46,8 @@ useEffect(() => {
 
 
 const showCheckout = () => {
- return  isAuth() ? ( <button className='btn btn-succes'>Checkout</button>
+ return  isAuth() ? ( 
+ <div >{showDropIn()}</div>
 ) : (
 <Link to='/signin'>
     <button className='btn btn-primary'>
@@ -54,6 +55,22 @@ const showCheckout = () => {
     </button>
 </Link>
     )}
+
+
+    const showDropIn = () => {
+        return (
+            <div>
+                {data.clientToken !== null && product.length > 0 ? (
+                    <div>
+                        <DropIn options={{
+                            authorization:data.clientToken
+                        }} onInstance = {instance => (data.instance = instance)} />
+                        <button className="btn btn-success">Checkout</button>
+                    </div>
+                ) : null}
+            </div>
+        )
+    }
 
 
     return (
