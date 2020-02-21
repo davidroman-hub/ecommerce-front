@@ -47,7 +47,7 @@ useEffect(() => {
 
 const showCheckout = () => {
  return  isAuth() ? ( 
- <div >{showDropIn()}</div>
+ <div >{showDropIn()}</div> //<-- showDropin is here
 ) : (
 <Link to='/signin'>
     <button className='btn btn-primary'>
@@ -57,6 +57,31 @@ const showCheckout = () => {
     )}
 
 
+    // buy method
+
+    const buy = () => {
+        //send the nonce to your server
+        //nonce = data.instance.requestPaymentMethod()
+
+        let nonce;
+        let getNonce = data.instance.requestPaymentMethod()
+        .then(
+            data => {
+                console.log(data)
+                nonce = data.nonce
+                // once you have nonce (card type, card number , etc..) send nonce as "paymentMethodNonce " to the backend
+                // and also total to be charged 
+                console.log('send nonce and tootal process:', nonce, getTotal(product))
+            })
+            .catch(error => {
+                console.log('dropin error:', error)
+                setData({...data, error: error.message})
+            })
+
+    }
+
+    //show dropin when is auth otherwise sign in
+
     const showDropIn = () => {
         return (
             <div>
@@ -65,7 +90,7 @@ const showCheckout = () => {
                         <DropIn options={{
                             authorization:data.clientToken
                         }} onInstance = {instance => (data.instance = instance)} />
-                        <button className="btn btn-success">Checkout</button>
+                        <button onClick={buy} className="btn btn-success">Pay</button>
                     </div>
                 ) : null}
             </div>
