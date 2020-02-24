@@ -13,6 +13,7 @@ const Checkout = ({product}) => {
     //State for get the token from braintree
 
     const [data, setData] = useState({
+        loading:false,
         success:false,
         clientToken:null,
         error:'',
@@ -62,11 +63,17 @@ const showCheckout = () => {
     // buy method
 
     const buy = () => {
+        setData({loading:true});
+        
+        
         //send the nonce to your server
         //nonce = data.instance.requestPaymentMethod()
 
+
+
         let nonce;
-        let getNonce = data.instance.requestPaymentMethod()
+        let getNonce = data.instance
+        .requestPaymentMethod()
         .then(
             data => {
                // console.log(data);
@@ -83,13 +90,20 @@ const showCheckout = () => {
                     console.log(response)
                     setData({...data, success: response.success})
                     emptyCart(() => {
-                        console.log('payment success and empty cart')
+                        
+                        console.log('payment success and empty cart');
+                        setData({
+                            loading: false
+                        })
                     })
                     //empty cart
                     //create order
 
                 })
-                .catch(error => console.log(error))
+                .catch(error => {
+                    console.log(error)
+                    setData({loading: false})
+                })
             })
             .catch(error => {
                 //console.log('dropin error:', error)
@@ -107,7 +121,10 @@ const showCheckout = () => {
                 {data.clientToken !== null && product.length > 0 ? (
                     <div>
                         <DropIn options={{
-                            authorization:data.clientToken
+                            authorization:data.clientToken,
+                            paypal:{
+                                flow:"vault" // this is for have paypal method for pay
+                            }
                         }} onInstance = {instance => (data.instance = instance)} />
                         <button onClick={buy} className="btn btn-success btn-block">Pay</button>
                     </div>
@@ -141,6 +158,13 @@ const showSuccess = success => {
     )
 }
 
+// loading function
+
+const showLoading = (loading) => (
+    loading && (
+        <h2>Loading...</h2>
+    )
+)
 
 
 
@@ -148,10 +172,10 @@ const showSuccess = success => {
         // <div>{JSON.stringify(product)}</div>
       <div> 
         <h2> Total: ${getTotal()}</h2>
+        {showLoading(data.loading)}
         {showSuccess(data.success)}
       {/* // data error from the state */}
        { showError(data.error)}
-
        {showCheckout()}
      
     </div>
