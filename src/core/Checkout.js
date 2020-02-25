@@ -64,6 +64,11 @@ const showCheckout = () => {
 </Link>
     )}
 
+//delivery address
+
+let deliveryAddress = data.address
+
+
 
     // buy method
 
@@ -98,7 +103,7 @@ const showCheckout = () => {
                         products: product,
                         transaction_id: response.transaction.id,
                         amount: response.transaction.amount,
-                        address: data.Address
+                        address: deliveryAddress
                     };
 
                     createOrder(userId, token, createOrderData)
