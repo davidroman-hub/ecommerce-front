@@ -93,23 +93,26 @@ const showCheckout = () => {
                    
                     //empty cart
                     //create order
-                    const createOrderData={
-                        product:product,
-                        transaction_id:response.transaction_id,
-                        amount:response.transaction.amount,
-                        address: data.address
-                    }
+
+                    const createOrderData = {
+                        products: product,
+                        transaction_id: response.transaction.id,
+                        amount: response.transaction.amount,
+                        address: data.Address
+                    };
 
                     createOrder(userId, token, createOrderData)
-
-                    setData({...data, success: response.success})
-                    emptyCart(() => {
-                        console.log('payment success and empty cart');
-                        // setData({
-                        //     loading: false
-                        // })
-                    })
-
+                    .then(response => {
+                        emptyCart(() => {
+                            console.log('payment success and empty cart');
+                            setData({
+                                loading: false, 
+                                success:true
+                            });
+                            // setData({...data, success: response.success})
+                        }); 
+                    });
+                   
                 })
                 .catch(error => {
                     console.log(error)
