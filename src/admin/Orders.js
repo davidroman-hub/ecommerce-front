@@ -35,6 +35,17 @@ const Orders = () => {
         }
     };
 
+    const showInput = (key, value) => {
+        return (
+            <div className='inputgroup mb-2 mr-sm-2'>
+                <div className='input-group-prepand'>
+                    <div className='input-group-text'>{key}</div>
+                </div>
+                <input type='text' value={value} className='form-control' readOnly/>
+            </div>
+        )
+    }
+
     return (
         <Layout title='Orders' 
         description={`G' Day ${user.name}!, you can manage all the orders here`} 
@@ -65,7 +76,7 @@ const Orders = () => {
                                         Amount: ${o.amount}
                                     </li>
                                     <li className="list-group-item">
-                                        Ordered by: {user.name}
+                                        {/* Ordered by: {o.user.name} */}
                                     </li>
                                     <li className="list-group-item">
                                         Ordered on: {moment(o.createdAt).fromNow()}
@@ -74,7 +85,17 @@ const Orders = () => {
                                         Delivery: {o.address}
                                     </li>
                                 </ul>
-                        <h3 className="mt-4 mb-4 font-italic"> Total products in the order:{o.products.length}</h3>
+                                     <h3 className="mt-4 mb-4 font-italic"> Total products in the order:{o.products.length}</h3>
+                                        {o.products.map((p,pIndex)=> (
+                                            <div className="mb-4" 
+                                            key={pIndex}
+                                            style={{padding:'20px', border:'1px solid indigo'}}>
+                                                {showInput('Product name', p.name)}
+                                                {showInput('Product price', p.price)}
+                                                {showInput('Product total', p.count)}
+                                                {showInput('Product Id', p._id)}
+                                            </div> 
+                                        ))}
                             </div>
                         )
                 })}
