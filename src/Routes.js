@@ -9,6 +9,7 @@ import Dashboard from './user/userDashboard'
 import Shop from './core/Shop'
 import Product from './core/Product'
 import Cart from './core/Cart'
+
 //Routes Privates and admi
 
 import PrivateRoute from './auth/PrivateRoute'
@@ -16,7 +17,7 @@ import AdminRoute from './auth/AdminRoute'
 import AddCategory from './admin/AddCategory'
 import AddProduct from './admin/AddProduct'
 import AdminDashboard from './user/AdminDashboard'
-
+import Orders from './admin/Orders'
 //menu
 
 //import Menu from './core/Menu' // I CHANGING THE MENU TO LAYOUT
@@ -43,6 +44,7 @@ const Routes = () => {
                <AdminRoute path='/admin/dashboard' exact component={AdminDashboard}/>
                <AdminRoute path='/create/categories' exact component={AddCategory}/>
                <AdminRoute path='/create/product' exact component={AddProduct}/>
+               <AdminRoute path='/admin/orders' exact component={Orders}/>
                  
           </Switch>  
     </BrowserRouter>
