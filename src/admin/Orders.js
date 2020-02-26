@@ -3,6 +3,7 @@ import Layout from '../core/Layout'
 import {isAuth} from '../auth/index'
 import {Link} from 'react-router-dom'
 import { listOrders} from './apiAdmin'
+import moment from 'moment'
 
 const Orders = () => {
 
@@ -24,8 +25,14 @@ const Orders = () => {
         loadOrders()
     },[])
     
-    const noOrders = orders => {
-        return orders.length < 1 ? <h2>No orders </h2> : null
+    const showOrdersLength = () => {
+        if(orders.length > 0){
+            return (
+            <h4 className='text-danger display-4'>Total Orders: {orders.length}</h4>
+            )
+        } else {
+            return <h1 className='text-danger'> No orders </h1>
+        }
     };
 
     return (
@@ -36,9 +43,41 @@ const Orders = () => {
         <div className='row'>
           
             <div className='col-md-8 offset-md-2'>
-                {noOrders(orders)}
-                {JSON.stringify(orders)}  
-
+                {/* {noOrders(orders)} */}
+                {showOrdersLength()}
+                {/* {JSON.stringify(orders)}   */}
+                {orders.map((o, oIndex) => {
+                        return (
+                            <div className='mt-5' 
+                            key={oIndex} 
+                            style={{borderBottom: "5px solid indigo"}}>
+                                <h2 className='mb-5'>
+                                    <span className="bg-primary">Order ID: {o._id}</span>
+                                </h2>
+                                <ul className="list-group mb-2">
+                                    <li className="list-group-item">
+                                        {o.status}
+                                    </li>
+                                    <li className="list-group-item">
+                                       Transaction ID: {o.transaction_id}
+                                    </li>
+                                    <li className="list-group-item">
+                                        Amount: ${o.amount}
+                                    </li>
+                                    <li className="list-group-item">
+                                        Ordered by: {user.name}
+                                    </li>
+                                    <li className="list-group-item">
+                                        Ordered on: {moment(o.createdAt).fromNow()}
+                                    </li>
+                                    <li className="list-group-item">
+                                        Delivery: {o.address}
+                                    </li>
+                                </ul>
+                        <h3 className="mt-4 mb-4 font-italic"> Total products in the order:{o.products.length}</h3>
+                            </div>
+                        )
+                })}
             </div>
         </div>
 
