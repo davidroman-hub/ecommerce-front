@@ -32,7 +32,54 @@ read(userId, token).then(data => {
 
 useEffect(() => {
     init(match.params.userId)
-},[])
+},[]);
+
+const handleChange = (e) =>{
+    //
+}
+
+const clickSubmit = (e) => {
+    //
+}
+
+
+const profileUpdate = (name, email, password) => {
+    
+    return(
+
+      
+         <div className="form-group">
+                <label className="text-muted">Name</label>
+                <input 
+                type="text" 
+                onChange={handleChange('name')} 
+                className="form-control" 
+                value={name}/>
+
+            <div className="form-group">
+                <label className="text-muted">Email</label>
+                <input 
+                type="email" 
+                onChange={handleChange('email')} 
+                className="form-control" 
+                value={email}/>  
+        </div>
+        
+        <div className="form-group">
+            <label className="text-muted">Password</label>
+            <input 
+            type="password" 
+            onChange={handleChange('password')} 
+            className="form-control" 
+            value={password}/>
+            
+        {/*           we need a funtion for send to the backendefor change everything */}
+        </div>
+        <button onClick={clickSubmit} className="btn btn-primary">Submit</button>
+         
+     </div>
+    )
+}
 
 
     return (
@@ -42,6 +89,7 @@ useEffect(() => {
       
        <h2 className="mb-4">Profile update</h2>
        {JSON.stringify(values)}
+       {profileUpdate(name, email, password)}
        
     </Layout>
     )
