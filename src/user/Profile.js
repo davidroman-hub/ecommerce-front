@@ -1,7 +1,7 @@
 import React,{ useState,useEffect} from 'react'
 import Layout from '../core/Layout'
 import {isAuth} from '../auth/index'
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 import {read , update, updateUser} from './apiUser'
 
 const Profile = ({match}) => {
@@ -34,12 +34,32 @@ useEffect(() => {
     init(match.params.userId)
 },[]);
 
-const handleChange = (e) =>{
-    //
+const handleChange = name => e =>{
+    setValues({...values, error:false, [name]:e.target.value})
 }
 
 const clickSubmit = (e) => {
-    //
+    e.preventDefault()
+    update(match.params.userId, token, {name, email, password}).then(
+        data => { if (data.error){
+            console.log(data.error)
+            }else{
+                updateUser(data, () => {
+                    setValues({...values, 
+                                name: data.name,
+                                email: data.email, 
+                                success:true
+                            })
+                })
+            }
+        }
+    )
+}
+// when is success the changes we want to redirect him to ..
+const redirectUser = (success) => {
+    if(success) {
+        return <Redirect to='/cart'/>
+    }
 }
 
 
@@ -90,6 +110,7 @@ const profileUpdate = (name, email, password) => {
        <h2 className="mb-4">Profile update</h2>
        {JSON.stringify(values)}
        {profileUpdate(name, email, password)}
+       {redirectUser(success)}
        
     </Layout>
     )
