@@ -9,6 +9,7 @@ import Dashboard from './user/userDashboard'
 import Shop from './core/Shop'
 import Product from './core/Product'
 import Cart from './core/Cart'
+import Profile from './user/Profile'
 
 //Routes Privates and admi
 
@@ -38,6 +39,7 @@ const Routes = () => {
             {/* //User routes */}
 
                <PrivateRoute path='/user/dashboard' exact component={Dashboard}/>
+               <PrivateRoute path='/profile/:userId' exact component={Profile}/>
 
             {/* adminRoutes     */}
             
