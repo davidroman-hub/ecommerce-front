@@ -1,11 +1,36 @@
-import React from 'react'
+import React,{ useState, useEffect}from 'react'
 import Layout from '../core/Layout'
 import {isAuth} from '../auth/index'
 import {Link} from 'react-router-dom'
 import Profile from './Profile'
+import {getPurchaseHistory} from './apiUser'
+
+
+
 const Dashboard = () => {
 
+    const[history, sethistory] = useState([]) //< -- for the purchase history user
+
     const {user:{_id, name, email, role}} = isAuth()
+    const token = isAuth().token
+    const init = (userId, token) => {
+        getPurchaseHistory(userId, token).then(
+            data => {
+                if (data.error){
+                    console.log(data.error)
+                } else {
+                    sethistory(data)
+                }
+            }
+        )
+    }
+
+
+    useEffect(() => {
+        init(_id, token);
+    }, []);
+
+
 
     const userLinks = () => { 
         return (
@@ -42,13 +67,13 @@ const Dashboard = () => {
         )
     } 
 
-    const purchaseHistory = () => { 
+    const purchaseHistory = (history) => { 
         return(
             <div className='card mb-5'>
             <h3 className='card-header'>Purchase history</h3> 
             <ul className='list-group'>
               <li className='list-group-item'>
-                  history
+                  {JSON.stringify(history)}
               </li>
            </ul>
       </div>
@@ -65,7 +90,7 @@ const Dashboard = () => {
             <div className='col-9'>
                 {userLinks()}<br/>
                 {userInfo()}
-                {purchaseHistory()}
+                {purchaseHistory(history)}
             </div>
         </div>
 
