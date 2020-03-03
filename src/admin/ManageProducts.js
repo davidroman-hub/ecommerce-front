@@ -41,13 +41,18 @@ const destroy = productId => {
 const productsList = () => {
     return (
         <div className='col-12'>
+            <h2 className='text-center'>
+                Total Products:{products.length}
+            </h2>
+            <hr />
             <ul className='list-group'>
                 {products.map((p,i)=>(
                     <li key={i} className='list-group-item justify-content-between align-items-center'>
                         <strong>{p.name}</strong>
-                        <Link to={`/admin/product/update/${p.id}`}>
+                        <Link to={`/admin/product/update/${p._id}`}>
                             <span className='badge badge-warning badge-pill'>Update</span>
-                        </Link>                   
+                        </Link>   
+                                        
                         <span onClick={()=> destroy(p._id)}
                          className='badge badge-danger badge-pill'>
                              Delate
