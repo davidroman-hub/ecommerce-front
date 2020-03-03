@@ -19,6 +19,7 @@ import AddCategory from './admin/AddCategory'
 import AddProduct from './admin/AddProduct'
 import AdminDashboard from './user/AdminDashboard'
 import Orders from './admin/Orders'
+import ManageProducts from './admin/ManageProducts'
 //menu
 
 //import Menu from './core/Menu' // I CHANGING THE MENU TO LAYOUT
@@ -47,6 +48,8 @@ const Routes = () => {
                <AdminRoute path='/create/categories' exact component={AddCategory}/>
                <AdminRoute path='/create/product' exact component={AddProduct}/>
                <AdminRoute path='/admin/orders' exact component={Orders}/>
+               <AdminRoute path='/admin/product' exact component={ManageProducts}/>
+
                  
           </Switch>  
     </BrowserRouter>
